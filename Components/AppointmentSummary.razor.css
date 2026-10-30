@@ -1,0 +1,32 @@
+.summary {
+    padding: 1rem 1.25rem;
+    background: #f8f5fc;
+    border: 1px solid #d9cce8;
+    border-radius: .75rem;
+}
+
+.summary h2 {
+    margin-top: 0;
+    font-size: 1.25rem;
+}
+
+.summary ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 .5rem;
+}
+
+.summary li {
+    display: flex;
+    justify-content: space-between;
+    padding: .2rem 0;
+}
+
+.empty {
+    color: #666;
+}
+
+.total {
+    margin: .25rem 0;
+    font-size: 1.05rem;
+}

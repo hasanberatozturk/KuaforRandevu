@@ -1,0 +1,22 @@
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.next {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.error {
+    color: #b00020;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+}

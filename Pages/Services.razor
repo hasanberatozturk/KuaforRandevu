@@ -1,0 +1,60 @@
+@page "/services"
+@using KuaforRandevu.Components
+@inject SalonDataService Data
+@inject AppointmentStateService State
+@inject NavigationManager Nav
+
+<h1>Hizmetlerimiz</h1>
+
+@if (errorMessage is not null)
+{
+    <p role="alert" class="error">@errorMessage</p>
+}
+else if (services is null)
+{
+    <p>Yükleniyor...</p>
+}
+else
+{
+    <div class="layout">
+        <section>
+            <ServiceSelector Services="services" SelectedIds="selectedIds" SelectedIdsChanged="OnSelectionChanged" />
+        </section>
+
+        <div>
+            <AppointmentSummary Services="State.SelectedServices" TotalMinutes="State.TotalMinutes"
+                                TotalPrice="State.TotalPrice" />
+            <button class="btn btn-primary next" disabled="@(State.SelectedServices.Count == 0)" onclick="Continue">
+                Devam Et
+            </button>
+        </div>
+    </div>
+}
+
+@code {
+    private List<SalonService>? services;
+    private List<string> selectedIds = new();
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            services = await Data.GetServicesAsync();
+            // Sayfaya geri dönüldüğünde önceki seçimleri state servisinden geri yükle
+            selectedIds = State.SelectedServices.Select(s => s.Id).ToList();
+        }
+        catch (Exception)
+        {
+            errorMessage = "Hizmetler yüklenemedi. Lütfen sayfayı yenileyin.";
+        }
+    }
+
+    private void OnSelectionChanged(List<string> ids)
+    {
+        selectedIds = ids;
+        State.SetServices(services!.Where(s => ids.Contains(s.Id)).ToList());
+    }
+
+    private void Continue() => Nav.NavigateTo("/appointments/new");
+}

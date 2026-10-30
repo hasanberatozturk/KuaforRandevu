@@ -1,23 +1,6 @@
-﻿@page "/"
+@page "/"
 
-@inject SalonDataService Data
-
-<h1>Test</h1>
-
-@if (services is null)
-{
-    <p>Yükleniyor...</p>
-}
-else
-{
-    <p>@services.Count hizmet yüklendi.</p>
-}
-
-@code {
-    private List<SalonService>? services;
-
-    protected override async Task OnInitializedAsync()
-    {
-        services = await Data.GetServicesAsync();
-    }
-}
+<h1>Kuaför Randevu</h1>
+<p>Çalışma saatlerimiz her gün <strong>09.00 - 19.00</strong>arasındadır.</p>
+<p>Hizmetlerimizi seçin, size uygun çalışan ve saati birlikte belirleyelim.</p>
+<a href="services" class="btn btn-primary">Hemen Randevu Al</a>
