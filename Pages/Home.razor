@@ -1,7 +1,23 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+@inject SalonDataService Data
 
-<h1>Hello, world!</h1>
+<h1>Test</h1>
 
-Welcome to your new app.
+@if (services is null)
+{
+    <p>Yükleniyor...</p>
+}
+else
+{
+    <p>@services.Count hizmet yüklendi.</p>
+}
+
+@code {
+    private List<SalonService>? services;
+
+    protected override async Task OnInitializedAsync()
+    {
+        services = await Data.GetServicesAsync();
+    }
+}
