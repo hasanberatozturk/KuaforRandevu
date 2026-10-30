@@ -1,0 +1,48 @@
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.service-card {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    padding: 1rem;
+    text-align: left;
+    background: #fff;
+    border: 2px solid #dee2e6;
+    border-radius: .75rem;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+.service-card:hover {
+    border-color: #7b5ea7;
+}
+
+.service-card:focus-visible {
+    outline: 3px solid #258cfb;
+    outline-offset: 2px;
+}
+
+.service-card.selected {
+    border-color: #5b2a86;
+    background: #f3ecfa;
+    box-shadow: 0 0 0 1px #5b2a86;
+}
+
+.service-card h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.meta {
+    color: #555;
+    font-size: .9rem;
+}
+
+.price {
+    font-weight: 700;
+    color: #5b2a86;
+}

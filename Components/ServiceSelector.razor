@@ -1,0 +1,25 @@
+<div class="service-grid">
+    @foreach (var s in Services)
+    {
+        var selected = SelectedIds.Contains(s.Id);
+        <button type="button" class="service-card @(selected ? "selected" : "")" aria-pressed="@selected"
+                @onclick="() => Toggle(s.Id)">
+            <h3>@s.Name</h3>
+            <span class="meta">⏱ @s.DurationMinutes dk</span>
+            <span class="price">@s.Price.ToString("C0", new CultureInfo("tr-TR"))</span>
+        </button>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public List<SalonService> Services { get; set; } = new();
+    [Parameter] public List<string> SelectedIds { get; set; } = new();
+    [Parameter] public EventCallback<List<string>> SelectedIdsChanged { get; set; }
+
+    private async Task Toggle(string id)
+    {
+        var list = new List<string>(SelectedIds);
+        if (!list.Remove(id)) list.Add(id);
+        await SelectedIdsChanged.InvokeAsync(list);
+    }
+}

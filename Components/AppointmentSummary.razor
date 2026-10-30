@@ -1,0 +1,41 @@
+<aside class="summary" aria-label="Randevu özeti">
+    <h2>Özet</h2>
+
+    @if (Services.Count == 0)
+    {
+        <p class="empty">Henüz hizmet seçilmedi.</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var s in Services)
+            {
+                <li><span>@s.Name</span><span>@s.DurationMinutes dk</span></li>
+            }
+        </ul>
+    }
+
+    @if (Employee is not null)
+    {
+        <p><strong>Çalışan:</strong> @Employee.FullName</p>
+    }
+    @if (Start is not null)
+    {
+        <p><strong>Tarih:</strong> @Start.Value.ToString("dd MMMM yyyy", new CultureInfo("tr-TR"))</p>
+        <p><strong>Saat:</strong> @Start.Value.ToString("HH:mm") – @End?.ToString("HH:mm")</p>
+    }
+
+    <hr />
+    <p class="total"><strong>Toplam süre:</strong> @TotalMinutes dk</p>
+    <p class="total"><strong>Toplam ücret:</strong> @TotalPrice.ToString("C0", new CultureInfo("tr-TR"))</p>
+</aside>
+
+@code {
+    [Parameter] public List<SalonService> Services { get; set; } = new();
+    [Parameter] public Employee? Employee { get; set; }
+    [Parameter] public DateTime? Start { get; set; }
+    [Parameter] public DateTime? End { get; set; }
+    [Parameter] public int TotalMinutes { get; set; }
+    [Parameter] public decimal TotalPrice { get; set; }
+
+}
