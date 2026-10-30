@@ -1,0 +1,74 @@
+[
+    {
+        "id": "S01",
+        "name": "Saç Kesimi",
+        "durationMinutes": 30,
+        "price": 400
+    },
+    {
+        "id": "S02",
+        "name": "Saç Boyama",
+        "durationMinutes": 90,
+        "price": 1200
+    },
+    {
+        "id": "S03",
+        "name": "Fön",
+        "durationMinutes": 30,
+        "price": 250
+    },
+    {
+        "id": "S04",
+        "name": "Sakal Tıraşı",
+        "durationMinutes": 30,
+        "price": 200
+    },
+    {
+        "id": "S05",
+        "name": "Röfle",
+        "durationMinutes": 120,
+        "price": 1800
+    },
+    {
+        "id": "S06",
+        "name": "Keratin Bakımı",
+        "durationMinutes": 90,
+        "price": 1500
+    },
+    {
+        "id": "S07",
+        "name": "Manikür",
+        "durationMinutes": 30,
+        "price": 300
+    },
+    {
+        "id": "S08",
+        "name": "Pedikür",
+        "durationMinutes": 60,
+        "price": 450
+    },
+    {
+        "id": "S09",
+        "name": "Kaş Alma",
+        "durationMinutes": 15,
+        "price": 100
+    },
+    {
+        "id": "S10",
+        "name": "Gelin Başı",
+        "durationMinutes": 120,
+        "price": 3000
+    },
+    {
+        "id": "S11",
+        "name": "Çocuk Saç Kesimi",
+        "durationMinutes": 30,
+        "price": 250
+    },
+    {
+        "id": "S12",
+        "name": "Saç Bakım Maskesi",
+        "durationMinutes": 45,
+        "price": 500
+    }
+]

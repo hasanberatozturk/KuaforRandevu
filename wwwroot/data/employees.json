@@ -1,0 +1,55 @@
+[
+    {
+        "id": "E01",
+        "fullName": "Ayşe Yılmaz",
+        "serviceIds": [
+            "S01",
+            "S02",
+            "S03",
+            "S05",
+            "S06",
+            "S12"
+        ]
+    },
+    {
+        "id": "E02",
+        "fullName": "Mehmet Demir",
+        "serviceIds": [
+            "S01",
+            "S03",
+            "S04",
+            "S11"
+        ]
+    },
+    {
+        "id": "E03",
+        "fullName": "Zeynep Kaya",
+        "serviceIds": [
+            "S07",
+            "S08",
+            "S09"
+        ]
+    },
+    {
+        "id": "E04",
+        "fullName": "Elif Şahin",
+        "serviceIds": [
+            "S01",
+            "S02",
+            "S03",
+            "S05",
+            "S10",
+            "S12"
+        ]
+    },
+    {
+        "id": "E05",
+        "fullName": "Can Arslan",
+        "serviceIds": [
+            "S01",
+            "S04",
+            "S09",
+            "S11"
+        ]
+    }
+]
