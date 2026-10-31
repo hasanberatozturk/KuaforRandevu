@@ -1,0 +1,29 @@
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin: 1.25rem 0 .75rem;
+}
+
+.error {
+    color: #b00020;
+    font-weight: 600;
+}
+
+.info {
+    margin-top: 1rem;
+    padding: .75rem 1rem;
+    background: #eef4ff;
+    border-radius: .5rem;
+}
+
+@media (max-width: 768px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+}

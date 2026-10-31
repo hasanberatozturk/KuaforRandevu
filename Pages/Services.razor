@@ -24,7 +24,7 @@ else
         <div>
             <AppointmentSummary Services="State.SelectedServices" TotalMinutes="State.TotalMinutes"
                                 TotalPrice="State.TotalPrice" />
-            <button class="btn btn-primary next" disabled="@(State.SelectedServices.Count == 0)" onclick="Continue">
+            <button class="btn btn-primary next" disabled="@(State.SelectedServices.Count == 0)" @onclick="Continue">
                 Devam Et
             </button>
         </div>
