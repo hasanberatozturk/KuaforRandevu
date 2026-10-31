@@ -1,0 +1,25 @@
+@if (Employees.Count == 0)
+{
+    <p role="alert" class="warning">Seçtiğiniz hizmetlerin tamamını veren çalışan bulunmuyor.
+        Lütfen hizmet seçiminizi değiştirin.</p>
+    }
+else
+    {
+        <div class="employee-list">
+            @foreach (var e in Employees)
+            {
+                var isSelected = Selected?.Id == e.Id;
+                <button type="button" class="employee @(isSelected ? "selected" : "")" aria-pressed="@isSelected"
+                        @onclick="() => OnEmployeeSelected.InvokeAsync(e)">
+                    👤 @e.FullName
+                </button>
+            }
+        </div>
+    }
+
+@code
+{
+    [Parameter] public List<Employee> Employees { get; set; } = new();
+    [Parameter] public Employee? Selected { get; set; }
+    [Parameter] public EventCallback<Employee> OnEmployeeSelected { get; set; }
+}

@@ -13,4 +13,7 @@ builder.Services.AddScoped<AppointmentStateService>();
 
 builder.Services.AddScoped<SalonDataService>();
 
+builder.Services.AddScoped<LocalStorageService>();
+builder.Services.AddScoped<AppointmentService>();
+
 await builder.Build().RunAsync();

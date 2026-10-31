@@ -1,0 +1,49 @@
+<div class="calender">
+    <label for="date">Tarih</label>
+    <input type="date" id="date" min="@DateTime.Today.ToString("yyyy-MM-dd")"
+           value="@(SelectedDate?.ToString("yyyy-MM-dd"))" @onchange="DateChanged" />
+    
+    @if (SelectedDate is not null)
+    {
+        <ul class="legend" aria-label="Renk açıklaması">
+            <li><span class="dot free"></span> Uygun</li>
+            <li><span class="dot busy"></span> Dolu</li>
+            <li><span class="dot off"></span> Geçmiş / uygun değil</li>
+            <li><span class="dot selected"></span> Seçili</li>
+        </ul>
+
+        <div class="slots">
+            @foreach (var slot in Slots)
+            {
+                var isBusy = slot.Reason == "Dolu";
+                <button type="button" class="slot @(slot.IsAvailable ? "free" :
+                        isBusy ? "busy" : "off") @(slot.Start == SelectedStart ? "selected" : ""))
+                    " disabled="@(!slot.IsAvailable)" title="@(slot.Reason ?? "Uygun")"
+                        aria-label="@slot.Start.ToString("HH:mm") @(slot.Reason ?? "uygun")"
+                        onclick="() => OnSlotSelected.InvokeAsync(slot.Start)">
+                    @slot.Start.ToString("HH:mm")
+                    @if (isBusy)
+                    {
+                        <span aria-hidden="true">X</span>
+                    }
+                </button>
+            }
+
+        </div>
+    }
+
+</div>
+
+@code {
+    [Parameter] public DateTime? SelectedDate { get; set; }
+    [Parameter] public List<TimeSlotOption> Slots { get; set; } = new();
+    [Parameter] public DateTime? SelectedStart { get; set; }
+    [Parameter] public EventCallback<DateTime> OnDateChanged { get; set; }
+    [Parameter] public EventCallback<DateTime> OnSlotSelected { get; set; }
+
+    private async Task DateChanged(ChangeEventArgs e)
+    {
+        if (DateTime.TryParse(e.Value?.ToString(), out var date) && date.Date >= DateTime.Today)
+            await OnDateChanged.InvokeAsync(date.Date);
+    }
+}

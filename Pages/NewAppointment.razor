@@ -1,0 +1,99 @@
+@page "/appointments/new"
+@inject SalonDataService Data
+@inject AppointmentService Appointments
+@inject AppointmentStateService State
+@inject NavigationManager Nav
+
+<h1>Randevu Al</h1>
+
+@if (errorMessage is not null)
+{
+    <p role="alert" class="error">@errorMessage</p>
+}
+else if (!loaded)
+{
+    <p>Yükleniyor...</p>
+}
+else
+{
+    <div class="layout">
+        <div>
+            <h2>1. Çalışan seçin</h2>
+            <EmployeeSelector Employees="eligible" Selected="State.SelectedEmployee"
+                              OnEmployeeSelected="OnEmployeeSelected" />
+
+            @if (State.SelectedEmployee is not null)
+            {
+                <h2>2. Tarih ve saat seçin</h2>
+                <AppointmentCalendar SelectedDate="State.SelectedDate" Slots="slots" SelectedStart="State.SelectedStart"
+                                     OnDateChanged="OnDateChanged" OnSlotSelected="OnSlotSelected" />
+            }
+
+            @if (State.SelectedStart is not null)
+            {
+                <p class="info">Müşteri bilgileri formu bir sonraki adımda eklenecek.</p>
+            }
+        </div>
+
+        <AppointmentSummary Services="State.SelectedServices" Employee="State.SelectedEmployee" Start="State.SelectedStart"
+                            End="State.SelectedEnd" TotalMinutes="State.TotalMinutes" TotalPrice="State.TotalPrice" />
+    </div>
+        
+}
+
+@code {
+    private List<Employee> eligible = new();
+    private List<TimeSlotOption> slots = new();
+    private bool loaded;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Hizmet seçilmediyse önce hizmet sayfasına gönder
+        if (State.SelectedServices.Count == 0)
+        {
+            Nav.NavigateTo("/services");
+            return;
+        }
+
+        try
+        {
+            await Appointments.LoadAsync();
+            var all = await Data.GetEmployeesAsync();
+            eligible = Appointments.GetEligibleEmployees(all, State.SelectedServices);
+
+            if (State.SelectedEmployee is not null && State.SelectedDate is not null)
+                await RefreshSlots();
+
+            loaded = true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            errorMessage = "Veriler yüklenemedi. Lütfen sayfayı yenileyin.";
+        }
+    }
+
+    private async Task OnEmployeeSelected(Employee employee)
+    {
+        State.SelectedEmployee = employee;
+        State.SelectedStart = null;
+        State.SelectedDate ??= DateTime.Today;
+        await RefreshSlots();
+    }
+
+    private async Task OnDateChanged(DateTime date)
+    {
+        State.SelectedDate = date;
+        State.SelectedStart = null;
+        await RefreshSlots();
+    }
+
+    private void OnSlotSelected(DateTime start) => State.SelectedStart = start;
+
+    private async Task RefreshSlots()
+    {
+        slots = await Appointments.GetTimeSlotsAsync(
+            State.SelectedEmployee!.Id, State.SelectedDate!.Value, State.TotalMinutes);
+    }
+}

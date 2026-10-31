@@ -1,0 +1,35 @@
+.employee-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+}
+
+.employee {
+    padding: .6rem 1.1rem;
+    background: #fff;
+    border: 2px solid #dee2e6;
+    border-radius: 2rem;
+    cursor: pointer;
+}
+
+.employee:hover {
+    border-color: #7b5ea7;
+}
+
+.employee:focus-visible {
+    outline: 3px solid #258cfb;
+    outline-offset: 2px;
+}
+
+.employee.selected {
+    border-color: #5b2a86;
+    background: #f3ecfa;
+    font-weight: 700;
+}
+
+.warning {
+    padding: .75rem 1rem;
+    background: #fff4e5;
+    border: 1px solid #f0b46c;
+    border-radius: .5rem;
+}
